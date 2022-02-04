@@ -1,0 +1,12 @@
+// AAU I should be able to click the board
+// AAU I should be able to pick between X and O
+// AAU I should be able to alternate turns
+// AAU I should get a message displaying whose turn it is 
+// AAU I should be able to reset the game wit a reset button
+// AAU if I win, I shouldn't be able to play again until i reset
+// AAU I should know who wins the game with a message/celebration
+// AAU I can't click in a sppace that is already occupied
+
+
+// write an init function
+  //
