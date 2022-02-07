@@ -112,5 +112,6 @@ function getWinner() {
 
   if (numOfTurns === 9 && winner === null){
     message.textContent = "It's a tie"
+    winner = 'T'
   }
 }
