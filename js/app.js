@@ -22,7 +22,7 @@ let numOfTurns
 const squaresArr = Array.from(document.querySelectorAll('.square'))
 // console.log(squaresArr)  //gets all the div#sq1.square in the board
 const message = document.getElementById('message')
-console.log(message)  //  message that appears during the game
+// console.log(message)  //  message that appears during the game
 const resetButton = document.getElementById('reset-button')
 // console.log(resetButton)  // reset button remains hidden until the first play is made
 
@@ -35,29 +35,25 @@ squaresArr.forEach(square => square.addEventListener('click', handleClick))
 init();
 
 function init() {
-  board =[null, null, null, null, null, null, null, null, null]; //empty board array
-  // console.log(board)
-  turn = 1         // 1 is player X, -1 is player Y
-  winner = null  //
-  // console.log(board)
+  board =[null, null, null, null, null, null, null, null, null]
+  turn = 1  
+  winner = null  
   numOfTurns = 0
-
+   message.textContent = 'Player O goes first'
   render()
-  // console.log(board)
 }
-// console.log(init)
 
 function render () {
 
   board.forEach((square, idx) => {
     if(square === 1){
       squaresArr[idx].textContent = "X"
-      message.textContent = "It's 0's turn"
+      
       squaresArr[idx].style.backgroundColor = 'blue'
     } 
     else if (square === -1) {
       squaresArr[idx].textContent = "O"
-      message.textContent = "It's X's turn"
+      
       squaresArr[idx].style.backgroundColor = 'pink'
     } 
     else {
@@ -65,22 +61,17 @@ function render () {
       squaresArr[idx].style.backgroundColor = 'white'
     } 
   })
-
-  message.textContent = 'Player X goes first'
 }
 
 function handleClick (evt) {
-  let idxSquare = parseInt(evt.target.id.slice(2)) /// index of the square clicked
+  let idxSquare = parseInt(evt.target.id.slice(2))
   
   if(winner){
     return
   }
-
+  turn *= -1
   checkTurn()
   // console.log(handleClick)
-
-  // turn *= -1
-
   numOfTurns += 1
 
   board[idxSquare] = turn
@@ -91,7 +82,6 @@ function handleClick (evt) {
 }
 
 function checkTurn(){
-  turn *= -1
   if (turn === 1) { 
     message.textContent = "It's O's Turn"
   } 
@@ -109,22 +99,16 @@ function getWinner() {
   
     if(board[a] +board[b] + board[c] === 3){
       message.textContent = "X Wins!!!"
-      endGame()
+      winner = 'X'
+      // endGame()
     }
     else if (board[a] +board[b] + board[c] === -3){
       message.textContent = 'O Wins!!!'
-      endGame()
-      
+      winner = 'O'
     }
   } 
 
   if (numOfTurns === 9 && winner === null){
     message.textContent = "It's a tie"
-    endGame()
-  }
-
-  function endGame(){
-    turn = null
-    return
   }
 }
