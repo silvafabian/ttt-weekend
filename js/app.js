@@ -39,7 +39,7 @@ function init() {
   turn = 1  
   winner = null  
   numOfTurns = 0
-   message.textContent = 'Player O goes first'
+  message.textContent = 'Player O goes first'
   render()
 }
 
@@ -100,11 +100,13 @@ function getWinner() {
     if(board[a] +board[b] + board[c] === 3){
       message.textContent = "X Wins!!!"
       winner = 'X'
+      confetti.start(3000)
       // endGame()
     }
     else if (board[a] +board[b] + board[c] === -3){
       message.textContent = 'O Wins!!!'
       winner = 'O'
+      confetti.start(3000)
     }
   } 
 
