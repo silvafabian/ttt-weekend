@@ -16,7 +16,7 @@ const winningCombos = [
 let board  // array to represent the squares on the board
 let turn   // variable to define whose turn it is 
 let winner // variable to define the 3 game states(tie, win, still going on)
-
+let numOfTurns
 
 /*------------------------ Cached Element References ------------------------*/
 const squaresArr = Array.from(document.querySelectorAll('.square'))
@@ -40,10 +40,10 @@ function init() {
   turn = 1         // 1 is player X, -1 is player Y
   winner = null  //
   // console.log(board)
-  T = 'tie'
+  numOfTurns = 0
 
   render()
-  console.log(board)
+  // console.log(board)
 }
 // console.log(init)
 
@@ -52,10 +52,12 @@ function render () {
   board.forEach((square, idx) => {
     if(square === 1){
       squaresArr[idx].textContent = "X"
+      message.textContent = "It's 0's turn"
       squaresArr[idx].style.backgroundColor = 'blue'
     } 
     else if (square === -1) {
       squaresArr[idx].textContent = "O"
+      message.textContent = "It's X's turn"
       squaresArr[idx].style.backgroundColor = 'pink'
     } 
     else {
@@ -74,26 +76,28 @@ function handleClick (evt) {
     return
   }
 
-  if (board[idxSquare] !== null){
-    return
-  }
-  if (winner !== null){
-    return
-  }
+  checkTurn()
+  // console.log(handleClick)
 
+  // turn *= -1
+
+  numOfTurns += 1
+
+  board[idxSquare] = turn
+
+  render()
+
+  getWinner()
+}
+
+function checkTurn(){
+  turn *= -1
   if (turn === 1) { 
     message.textContent = "It's O's Turn"
   } 
   else if (turn === -1) {
     message.textContent = "It's X's Turn"
   }
-  // console.log(handleClick)
-
-  turn *= -1
-
-  board[idxSquare] = turn
-  render()
-  getWinner()
 }
 
 function getWinner() {
@@ -105,12 +109,22 @@ function getWinner() {
   
     if(board[a] +board[b] + board[c] === 3){
       message.textContent = "X Wins!!!"
-      return
+      endGame()
     }
     else if (board[a] +board[b] + board[c] === -3){
       message.textContent = 'O Wins!!!'
-      return
+      endGame()
+      
     }
   } 
-  
+
+  if (numOfTurns === 9 && winner === null){
+    message.textContent = "It's a tie"
+    endGame()
+  }
+
+  function endGame(){
+    turn = null
+    return
+  }
 }
