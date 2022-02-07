@@ -43,6 +43,7 @@ function init() {
   T = 'tie'
 
   render()
+  console.log(board)
 }
 // console.log(init)
 
@@ -64,13 +65,6 @@ function render () {
   })
 
   message.textContent = 'Player X goes first'
-  if (winner !== null){
-    message.textContent = `Player ${ turn === 1 ? "X" : "O"} is Up!`
-  }
-  else if (winner === T){
-    message.textContent = `It's a tie! Play again!`
-  }
-  
 }
 
 function handleClick (evt) {
@@ -98,12 +92,12 @@ function handleClick (evt) {
   turn *= -1
 
   board[idxSquare] = turn
-  // console.log(board[idxSquare])
   render()
   getWinner()
 }
 
 function getWinner() {
+
   for (let i = 0; i < winningCombos.length; i++){
     const a = winningCombos[i][0]
     const b = winningCombos[i][1]
@@ -111,10 +105,12 @@ function getWinner() {
   
     if(board[a] +board[b] + board[c] === 3){
       message.textContent = "X Wins!!!"
+      return
     }
     else if (board[a] +board[b] + board[c] === -3){
       message.textContent = 'O Wins!!!'
+      return
     }
-  }
-  // resetButton.removeAttribute('hidden')
+  } 
+  
 }
