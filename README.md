@@ -52,11 +52,11 @@
 
 		// 3.4) After completing this step, you should be able to manually change the values held in the board array in the initialization function and see the style of the corresponding square change on your page. -->
 
-// 4) Define the required constants:
+<!-- // 4) Define the required constants:
 
 	// 4.1) Define the 8 possible winning combinations as an array of arrays.
 	  // Each array will contain three indexes of the board that make a winner if they hold the same player value. 
-		// If you are having trouble with this step, feel free to check out the winningCombos array in the solution code. 
+		// If you are having trouble with this step, feel free to check out the winningCombos array in the solution code.  -->
 
 // 5) Next, the app should wait for the user to click a square and call a handleClick function
   // the handleClick function will...

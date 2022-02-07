@@ -28,11 +28,9 @@ const resetButton = document.getElementById('reset-button')
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-// squares.forEach(square => square.addEventListener('click', handleClick))
-//   
-// 
+squaresArr.forEach(square => square.addEventListener('click', handleClick))
 
-
+// resetButton.addEventListener('click', init)
 /*-------------------------------- Functions --------------------------------*/
 init();
 
@@ -72,87 +70,51 @@ function render () {
   else if (winner === T){
     message.textContent = `It's a tie! Play again!`
   }
-  else if (winner ===1 || winner === -1){
-    message.textContent = `Player ${ winner === 1 ? "X" : "O"} has won!!!!`
-  }
+  
 }
 
-// function handleClick (evt) {
-//   let idxSquare = parseInt(evt.target.id.slice(2))
+function handleClick (evt) {
+  let idxSquare = parseInt(evt.target.id.slice(2)) /// index of the square clicked
+  
+  if(winner){
+    return
+  }
 
-//   board[idxSquare] = turn
+  if (board[idxSquare] !== null){
+    return
+  }
+  if (winner !== null){
+    return
+  }
 
-//   // if (board[i] !== null){
-//   //   if(turn === 1){
-//   //     board[i] = 1
-//   //   }
-//   //   else if (turn === -1){
-//   //     board[i] = -1
-//   //   }
-//   //   turn = turn * -1
-//   // }
-//   // boardUpdate()
-//   // isGameOver()
-//   // altTurn()
-//   // getWinner()
-//   console.log(evt.target.id)
-// }
+  if (turn === 1) { 
+    message.textContent = "It's O's Turn"
+  } 
+  else if (turn === -1) {
+    message.textContent = "It's X's Turn"
+  }
+  // console.log(handleClick)
 
-// function loopAllSquares () {
-//   for (i = 0; i < board.length; i++){
-//     if (board[i] === playerX){
-//       allSquares[i].textContent = 'X'
-//       allSquares.className = "PlayerX-Square"
-//       colorSquare = 'blue'
-//     }
-//     else if (board[i] === playerO){
-//       allSquares[i].textContent = 'O'
-//       allSquares.className ="PlayerO-Square"
-//       colorSquare = 'pink'
-//     }
-//     else {
-//       allSquares[i].textContent = ""
-//       colorSquare = 'white'
-//     }
-//     allSquares[i].style.background = colorSquare
-//   }
-// }
+  turn *= -1
 
-// function gameState() {
-//   if (winner !== null) {
-//     message.textContent = `It's Player ${ turn === 1 ? "X's" : "O's"} Turn`
-//   }
-//   else if (winner === 'T') {
-//     message.textContent = "It''s a tie!"
-//   }
-//   else {
-//     message.textContent = `Player ${ winner === 1 ? "X" : "O"} Has Won!`
-//   }
-// }
+  board[idxSquare] = turn
+  // console.log(board[idxSquare])
+  render()
+  getWinner()
+}
 
-// function boardUpdate() {
-//   turn = turn * (-1);
-
-//   if (board[i] === null){
-//     if (turn === 1 ){
-//       board[i] = 1
-//     }
-//     else if (turn === -1){
-//       board[i] = -1
-//     }
-//   }
-// }
-
-// function isGameOver () {
-//   if (winner !== null) {
-//     return
-//   }
-// }
-
-// function altTurn() {
-//   turn = -1 * turn
-// }
-
-// function getWinner () {
-
-// }
+function getWinner() {
+  for (let i = 0; i < winningCombos.length; i++){
+    const a = winningCombos[i][0]
+    const b = winningCombos[i][1]
+    const c = winningCombos[i][2]
+  
+    if(board[a] +board[b] + board[c] === 3){
+      message.textContent = "X Wins!!!"
+    }
+    else if (board[a] +board[b] + board[c] === -3){
+      message.textContent = 'O Wins!!!'
+    }
+  }
+  // resetButton.removeAttribute('hidden')
+}
